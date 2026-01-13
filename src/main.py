@@ -19,7 +19,7 @@ Brain().screen.print("Hello Vex World!")
 def autonomous():
     brain.screen.clear_screen()
     brain.screen.print("autonomous code")
-    # place automonous code here
+    # place automonous code
     
 
 def user_control():
