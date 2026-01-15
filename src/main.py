@@ -9,8 +9,8 @@
 
 # Library imports
 from vex import *
-import motor
-import motor_group
+from autonomous import *
+from user import *
 
 brain = Brain()
  # Setting up motors and controller
@@ -40,55 +40,7 @@ def autonomous():
     brain.screen.print("autonomous code")
     drivetrain = SmartDrive (motor_group_1, motor_group_2)
      
-def user_control():
-    brain.screen.clear_screen()
-    brain.screen.print("driver control")
-    # Setting up controller for user control portion
-    while True:
-        wait(20, MSEC)
-        if controller_1.buttonUp.pressing():
-            brain.screen.set_cursor(3, 12)
-            brain.screen.print("Up Arrow Button is being pressed")
-            while controller_1.buttonUp.pressing() == True:
-                motor_group_1.spin(FORWARD, 100)
-            brain.screen.clear_screen()
-            brain.screen.set_cursor(3, 12)
-            brain.screen.print("Up Arrow Button was released")
-            wait(500, MSEC)
-            brain.screen.clear_screen()
 
-        if controller_1.buttonDown.pressing():
-            brain.screen.set_cursor(4, 12)
-            brain.screen.print("Down Arrow Button is being pressed")
-            while controller_1.buttonDown.pressing() == True:
-                motor_group_1.spin(REVERSE, 100)
-            brain.screen.clear_screen()
-            brain.screen.set_cursor(4, 12)
-            brain.screen.print("Down Arrow Button was released")
-            wait(500, MSEC)
-            brain.screen.clear_screen()
-
-        if controller_1.buttonX.pressing():
-            brain.screen.set_cursor(5, 12)
-            brain.screen.print("Button X is being pressed")
-            while controller_1.buttonX.pressing() == True:
-                motor_group_2.spin(FORWARD, 100)
-            brain.screen.clear_screen()
-            brain.screen.set_cursor(5, 12)
-            brain.screen.print("Button X was released")
-            wait(500, MSEC)
-            brain.screen.clear_screen()
-
-        if controller_1.buttonB.pressing():
-            brain.screen.set_cursor(6, 12)
-            brain.screen.print("Button B is being pressed")
-            while controller_1.buttonB.pressing() == True:
-                motor_group_2.spin(REVERSE, 100)
-            brain.screen.clear_screen()
-            brain.screen.set_cursor(6, 12)
-            brain.screen.print("Button B was released")
-            wait(500, MSEC)
-            brain.screen.clear_screen()
 
 # create competition instance
 comp = Competition(user_control, autonomous)
