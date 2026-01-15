@@ -98,7 +98,7 @@ motor_3b = vex.Motor(vex.Ports.PORT6)
 motor_group_1 = motor_group(motor_1a, motor_2a, motor_3a)
 motor_group_2 = motor_group(motor_1b, motor_2b, motor_3b)
 
-#Initialize controller
+# Initialize controller
 controller_1 = Controller()
 
 # Set up controller buttons
@@ -133,3 +133,4 @@ while True:
     
     # A small wait is necessary to prevent the brain from getting overwhelmed and crashing
     wait(5, MSEC)
+
