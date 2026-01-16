@@ -16,5 +16,3 @@ def autonomous ():
     left_drive.stop()
     right_drive.stop()
     intake_motor.stop()
-
-
