@@ -17,6 +17,10 @@ motor_3a = Motor(Ports.PORT3)
 motor_group_1 = MotorGroup(motor_1a, motor_2a, motor_3a)
 motor_group_2 = MotorGroup(motor_1b, motor_2b, motor_3b)
 
+# Intake Motors
+motor_intake_1 = Motor(Ports.PORT8)
+motor_intake_2 = Motor(Ports.PORT9)
+
 # Controller
 controller_1 = Controller()
 
@@ -27,46 +31,46 @@ def user_control():
     # Setting up controller for user control portion
     while True:
         wait(20, MSEC)
-        if controller_1.buttonUp.pressing():
-            brain.screen.set_cursor(3, 12)
-            brain.screen.print("Up Arrow Button is being pressed")
-            while controller_1.buttonUp.pressing() == True:
+        # Makes both motor groups spin forward
+        if controller_1.buttonUp.pressing() and controller_1.buttonX.pressing():
+            while controller_1.buttonUp.pressing() and controller_1.buttonX.pressing():
                 motor_group_1.spin(FORWARD, 100)
-            brain.screen.clear_screen()
-            brain.screen.set_cursor(3, 12)
-            brain.screen.print("Up Arrow Button was released")
-            wait(500, MSEC)
-            brain.screen.clear_screen()
-
-        if controller_1.buttonDown.pressing():
-            brain.screen.set_cursor(4, 12)
-            brain.screen.print("Down Arrow Button is being pressed")
-            while controller_1.buttonDown.pressing() == True:
-                motor_group_1.spin(REVERSE, 100)
-            brain.screen.clear_screen()
-            brain.screen.set_cursor(4, 12)
-            brain.screen.print("Down Arrow Button was released")
-            wait(500, MSEC)
-            brain.screen.clear_screen()
-
-        if controller_1.buttonX.pressing():
-            brain.screen.set_cursor(5, 12)
-            brain.screen.print("Button X is being pressed")
-            while controller_1.buttonX.pressing() == True:
                 motor_group_2.spin(FORWARD, 100)
-            brain.screen.clear_screen()
-            brain.screen.set_cursor(5, 12)
-            brain.screen.print("Button X was released")
-            wait(500, MSEC)
-            brain.screen.clear_screen()
 
-        if controller_1.buttonB.pressing():
-            brain.screen.set_cursor(6, 12)
-            brain.screen.print("Button B is being pressed")
-            while controller_1.buttonB.pressing() == True:
+        # Makes both motor groups spin backward
+        if controller_1.buttonDown.pressing() and controller_1.buttonB.pressing():
+            while controller_1.buttonDown.pressing() and controller_1.buttonB.pressing():
+                motor_group_1.spin(REVERSE, 100)
                 motor_group_2.spin(REVERSE, 100)
-            brain.screen.clear_screen()
-            brain.screen.set_cursor(6, 12)
-            brain.screen.print("Button B was released")
-            wait(500, MSEC)
-            brain.screen.clear_screen()
+
+        # Makes ONLY right motor group spin forward (turning left and forward)
+        if controller_1.buttonX.pressing():
+            while controller_1.buttonX.pressing():
+                motor_group_2.spin(FORWARD, 100)
+
+        # Makes ONLY right motor group spin backward (turning left and backward)
+        if controller_1.buttonB.pressing():
+            while controller_1.buttonB.pressing():
+                motor_group_2.spin(REVERSE, 100)
+
+        # Makes the left motor group spin forward (turning right and forward)
+        if controller_1.buttonUp.pressing():
+            while controller_1.buttonUp.pressing():
+                motor_group_1.spin(FORWARD, 100)
+
+        # Makes the left motor group spin backward (turning right and backward)
+        if controller_1.buttonDown.pressing():
+            while controller_1.buttonDown.pressing():
+                motor_group_1.spin(REVERSE, 100)
+
+        # Intake pull
+        if controller_1.buttonR1.pressing():
+            while controller_1.buttonR1.pressing():
+                motor_intake_1.spin(FORWARD, 100)
+        
+        # Intake Discharge 
+        if controller_1.buttonR2.pressing():
+            while controller_1.buttonR1.pressing():
+                motor_intake_2.spin(FORWARD, 100)
+        
+        
