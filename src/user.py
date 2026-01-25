@@ -24,53 +24,71 @@ motor_intake_2 = Motor(Ports.PORT9)
 # Controller
 controller_1 = Controller()
 
-
 def user_control():
     brain.screen.clear_screen()
     brain.screen.print("driver control")
     # Setting up controller for user control portion
     while True:
-        wait(20, MSEC)
-        # Makes both motor groups spin forward
+        wait(20,MSEC)
+        brain.screen.clear_screen()
+        brain.screen.print("driver control")
+        # Setting up controller for user control portion
+        
+        # Making both motor groups spin forward
         if controller_1.buttonUp.pressing() and controller_1.buttonX.pressing():
-            while controller_1.buttonUp.pressing() and controller_1.buttonX.pressing():
-                motor_group_1.spin(FORWARD, 100)
-                motor_group_2.spin(FORWARD, 100)
+            motor_group_1.spin(REVERSE, 60, PERCENT)
+            motor_group_2.spin(FORWARD, 60, PERCENT)
+
+        elif not(controller_1.buttonUp.pressing() and controller_1.buttonX.pressing()):
+            motor_group_1.stop()
+            motor_group_2.stop()
 
         # Makes both motor groups spin backward
         if controller_1.buttonDown.pressing() and controller_1.buttonB.pressing():
-            while controller_1.buttonDown.pressing() and controller_1.buttonB.pressing():
-                motor_group_1.spin(REVERSE, 100)
-                motor_group_2.spin(REVERSE, 100)
+            motor_group_1.spin(FORWARD, 60, PERCENT)
+            motor_group_2.spin(REVERSE, 60, PERCENT)
+        elif not(controller_1.buttonDown.pressing() and controller_1.buttonB.pressing()):
+            motor_group_1.stop()
+            motor_group_2.stop()
 
         # Makes ONLY right motor group spin forward (turning left and forward)
         if controller_1.buttonX.pressing():
-            while controller_1.buttonX.pressing():
-                motor_group_2.spin(FORWARD, 100)
+            motor_group_2.spin(FORWARD, 60, PERCENT)
+        elif not(controller_1.buttonX.pressing()):
+            motor_group_2.stop()
 
         # Makes ONLY right motor group spin backward (turning left and backward)
         if controller_1.buttonB.pressing():
-            while controller_1.buttonB.pressing():
-                motor_group_2.spin(REVERSE, 100)
+            motor_group_2.spin(REVERSE, 60, PERCENT)
+        elif not(controller_1.buttonB.pressing()):
+            motor_group_2.stop()
 
         # Makes the left motor group spin forward (turning right and forward)
         if controller_1.buttonUp.pressing():
-            while controller_1.buttonUp.pressing():
-                motor_group_1.spin(FORWARD, 100)
+            motor_group_1.spin(REVERSE, 60, PERCENT)
+        elif not(controller_1.buttonUp.pressing()):
+            motor_group_1.stop()
 
         # Makes the left motor group spin backward (turning right and backward)
         if controller_1.buttonDown.pressing():
-            while controller_1.buttonDown.pressing():
-                motor_group_1.spin(REVERSE, 100)
+            motor_group_1.spin(FORWARD, 60, PERCENT)
+        elif not(controller_1.buttonDown.pressing()):
+            motor_group_1.stop()
 
-        # Intake pull
+        # Intake pull (forward)
         if controller_1.buttonR1.pressing():
-            while controller_1.buttonR1.pressing():
-                motor_intake_1.spin(FORWARD, 100)
-        
-        # Intake Discharge 
+            motor_intake_1.spin(FORWARD, 60, PERCENT)
+        elif controller_1.buttonR1.pressing():
+            motor_intake_1.stop()
+            
+        # Intake discharge 
+        if controller_1.buttonL1.pressing():
+            motor_intake_1.spin(REVERSE, 60, PERCENT)
+        elif not(controller_1.buttonL1.pressing()):
+            motor_intake_1.stop()
+
+        # Intake pull (reverse)
         if controller_1.buttonR2.pressing():
-            while controller_1.buttonR1.pressing():
-                motor_intake_2.spin(FORWARD, 100)
-        
-        
+            motor_intake_1.spin(REVERSE, 60, PERCENT)
+        elif controller_1.buttonR2.pressing():
+            motor_intake_1.stop()
