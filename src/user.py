@@ -1,14 +1,16 @@
 from vex import *
 
+# Brain
 brain = Brain()
+
 # Motor Definition
 
-# Right
+# Right Motors
 motor_1b = Motor(Ports.PORT4)
 motor_2b = Motor(Ports.PORT5)
 motor_3b = Motor(Ports.PORT6)
 
-# Left
+# Left Motors
 motor_1a = Motor(Ports.PORT1)
 motor_2a = Motor(Ports.PORT2)
 motor_3a = Motor(Ports.PORT3)
@@ -24,9 +26,11 @@ motor_intake_2 = Motor(Ports.PORT9)
 # Controller
 controller_1 = Controller()
 
+brain.screen.clear_screen()
+brain.screen.print("driver control")
+
+# User control function setting up controller and handling buttons
 def user_control():
-    brain.screen.clear_screen()
-    brain.screen.print("driver control")
     # Setting up controller for user control portion
     while True:
         wait(20,MSEC)
@@ -34,61 +38,34 @@ def user_control():
         brain.screen.print("driver control")
         # Setting up controller for user control portion
         
-        # Making both motor groups spin forward
-        if controller_1.buttonUp.pressing() and controller_1.buttonX.pressing():
-            motor_group_1.spin(REVERSE, 60, PERCENT)
-            motor_group_2.spin(FORWARD, 60, PERCENT)
-
-        elif not(controller_1.buttonUp.pressing() and controller_1.buttonX.pressing()):
-            motor_group_1.stop()
-            motor_group_2.stop()
-
-        # Makes both motor groups spin backward
-        if controller_1.buttonDown.pressing() and controller_1.buttonB.pressing():
-            motor_group_1.spin(FORWARD, 60, PERCENT)
-            motor_group_2.spin(REVERSE, 60, PERCENT)
-        elif not(controller_1.buttonDown.pressing() and controller_1.buttonB.pressing()):
-            motor_group_1.stop()
-            motor_group_2.stop()
-
-        # Makes ONLY right motor group spin forward (turning left and forward)
-        if controller_1.buttonX.pressing():
-            motor_group_2.spin(FORWARD, 60, PERCENT)
-        elif not(controller_1.buttonX.pressing()):
-            motor_group_2.stop()
-
-        # Makes ONLY right motor group spin backward (turning left and backward)
-        if controller_1.buttonB.pressing():
-            motor_group_2.spin(REVERSE, 60, PERCENT)
-        elif not(controller_1.buttonB.pressing()):
-            motor_group_2.stop()
-
-        # Makes the left motor group spin forward (turning right and forward)
+        # Left motor group
         if controller_1.buttonUp.pressing():
-            motor_group_1.spin(REVERSE, 60, PERCENT)
-        elif not(controller_1.buttonUp.pressing()):
+            motor_group_1.spin(FORWARD,60,PERCENT)
+        elif controller_1.buttonDown.pressing():
+            motor_group_1.spin(REVERSE,60,PERCENT)
+        else:
             motor_group_1.stop()
 
-        # Makes the left motor group spin backward (turning right and backward)
-        if controller_1.buttonDown.pressing():
-            motor_group_1.spin(FORWARD, 60, PERCENT)
-        elif not(controller_1.buttonDown.pressing()):
-            motor_group_1.stop()
+        # Right motor group
+        if controller_1.buttonX.pressing():
+            motor_group_2.spin(FORWARD,60,PERCENT)
+        elif controller_1.buttonB.pressing():
+            motor_group_2.spin(REVERSE,60,PERCENT)
+        else:
+            motor_group_2.stop()
 
-        # Intake pull (forward)
+        # Intake pull
         if controller_1.buttonR1.pressing():
-            motor_intake_1.spin(FORWARD, 60, PERCENT)
-        elif controller_1.buttonR1.pressing():
-            motor_intake_1.stop()
-            
-        # Intake discharge 
-        if controller_1.buttonL1.pressing():
-            motor_intake_1.spin(REVERSE, 60, PERCENT)
-        elif not(controller_1.buttonL1.pressing()):
+            motor_intake_1.spin(FORWARD,60,PERCENT)
+        elif controller_1.buttonR2.pressing():
+            motor_intake_1.spin(REVERSE,60,PERCENT)
+        else:
             motor_intake_1.stop()
 
-        # Intake pull (reverse)
-        if controller_1.buttonR2.pressing():
-            motor_intake_1.spin(REVERSE, 60, PERCENT)
-        elif controller_1.buttonR2.pressing():
-            motor_intake_1.stop()
+        # Intake discharge
+        if controller_1.buttonL1.pressing():
+            motor_intake_2.spin(FORWARD,60,PERCENT)
+        elif controller_1.buttonL2.pressing():
+            motor_intake_2.spin(REVERSE,60,PERCENT)
+        else:
+            motor_intake_2.stop()
