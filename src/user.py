@@ -26,10 +26,11 @@ motor_intake_2 = Motor(Ports.PORT9)
 # Controller
 controller_1 = Controller()
 
+brain.screen.clear_screen()
+brain.screen.print("driver control")
+
 # User control function setting up controller and handling buttons
 def user_control():
-    brain.screen.clear_screen()
-    brain.screen.print("driver control")
     # Setting up controller for user control portion
     while True:
         wait(20,MSEC)
