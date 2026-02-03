@@ -1,3 +1,6 @@
+from vex import *
+brain = Brain()
+
 # Right Motors
 motor_1b = Motor(Ports.PORT4)
 motor_2b = Motor(Ports.PORT5)
