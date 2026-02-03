@@ -23,6 +23,10 @@ motor_group_2 = MotorGroup(motor_1b, motor_2b, motor_3b)
 motor_intake_1 = Motor(Ports.PORT8)
 motor_intake_2 = Motor(Ports.PORT9)
 
+# Pneumatics
+matchloader = Pneumatic(Brain.three_wire_port.a)
+descore = Pneumatic(Brain.three_wire_port.b)
+
 # Controller
 controller_1 = Controller()
 
@@ -69,3 +73,15 @@ def user_control():
             motor_intake_2.spin(REVERSE,60,PERCENT)
         else:
             motor_intake_2.stop()
+
+        # Matchloader
+        if controller_1.buttonUp.pressing():
+            matchloader.open()
+        else:
+            matchloader.close()
+
+        # Descore
+        if controller_1.buttonX.pressing():
+            descore.open()
+        else:
+            descore.close()
