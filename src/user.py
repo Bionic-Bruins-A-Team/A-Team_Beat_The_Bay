@@ -81,3 +81,9 @@ def user_control():
           descore.open()
       elif controller_1.buttonDown.pressed():
           descore.close()
+        
+      # Matchloader
+      if controller_1.buttonX.pressed():
+          matchloader.open()
+      elif controller_1.buttonB.pressed():
+          matchloader.close()
