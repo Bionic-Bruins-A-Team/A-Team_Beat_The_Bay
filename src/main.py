@@ -11,7 +11,7 @@
 from vex import *
 
 brain = Brain()
- # Setting up motors and controller
+# Setting up motors and controller
 
 # Left side motors
 motor_1a = Motor(Ports.PORT1)
@@ -27,11 +27,12 @@ motor_3b = Motor(Ports.PORT6)
 motor_group_1 = MotorGroup(motor_1a, motor_2a, motor_3a)
 motor_group_2 = MotorGroup(motor_1b, motor_2b, motor_3b)
 
+# Drivetrain
+drivetrain = Drivetrain(motor_group_1, motor_group_2)
+
+
 #Initialize controller
 controller_1 = Controller()
-
-# Initialize inertial sensor
-inertial_1 = Inertial(Ports.PORT7)
 
 brain.screen.print("Hello Vex World!")
 
@@ -59,34 +60,6 @@ def user_control():
 
       elif -10 < back_forth < 10 and -10 < left_right < 10:
            drivetrain.stop()
-
-      # Intake pull
-      if controller_1.buttonL1.pressing():
-          motor_intake_1.spin(FORWARD,100,PERCENT)
-      elif controller_1.buttonL2.pressing():
-          motor_intake_1.spin(REVERSE,100,PERCENT)
-      else:
-           motor_intake_1.stop()
-
-      # Intake discharge
-      if controller_1.buttonR1.pressing():
-          motor_intake_2.spin(FORWARD,100,PERCENT)
-      elif controller_1.buttonR2.pressing():
-          motor_intake_2.spin(REVERSE,100,PERCENT)
-      else:
-           motor_intake_2.stop()
-
-      # Descore
-      if controller_1.buttonUp.pressed():
-          descore.open()
-      elif controller_1.buttonDown.pressed():
-          descore.close()
-
-      # Matchloader
-      if controller_1.buttonX.pressed():
-          matchloader.open()
-      elif controller_1.buttonB.pressed():
-          matchloader.close()
 
 def autonomous():
  pass
