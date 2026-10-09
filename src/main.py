@@ -39,13 +39,13 @@ while True:
     
     # Left
     elif (left_right < -10):
-        lmotors.spin(REVERSE, abs(left_right), PERCENT/2)
-        rmotors.spin(FORWARD, abs(left_right), PERCENT/2)
+        lmotors.spin(REVERSE, abs(left_right)/2, PERCENT)
+        rmotors.spin(FORWARD, abs(left_right)/2, PERCENT)
     
     # Right
     elif (left_right > 10):
-        lmotors.spin(FORWARD, abs(left_right), PERCENT/2)
-        rmotors.spin(REVERSE, abs(left_right), PERCENT/2)
+        lmotors.spin(FORWARD, abs(left_right)/2, PERCENT)
+        rmotors.spin(REVERSE, abs(left_right)/2, PERCENT)
 
     # Safety block
     else:
