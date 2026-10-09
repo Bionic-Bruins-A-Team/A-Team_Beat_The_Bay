@@ -28,7 +28,7 @@ motor_group_1 = MotorGroup(motor_1a, motor_2a, motor_3a)
 motor_group_2 = MotorGroup(motor_1b, motor_2b, motor_3b)
 
 # Drivetrain
-drivetrain = Drivetrain(motor_group_1, motor_group_2)
+drivetrain = DriveTrain(motor_group_1, motor_group_2)
 
 
 #Initialize controller
@@ -39,8 +39,8 @@ brain.screen.print("Hello Vex World!")
 def user_control():
  while True:
       wait(20,MSEC)
-      back_forth = controller_1.axis3.position()
-      left_right = controller_1.axis1.position()
+      back_forth = controller_1.axis1.position()
+      left_right = controller_1.axis3.position()
 
       # Right joystick for moving forward and backward
       if back_forth >= 10:
