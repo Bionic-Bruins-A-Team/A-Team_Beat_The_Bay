@@ -25,7 +25,7 @@ rmotors = MotorGroup(rmotor_1, rmotor_2, rmotor_3)
 while True:
     # Set up variables for easy access
     fwd_back = controller.axis3.position()
-    left_right = controller.axis4 .position()
+    left_right = controller.axis4.position()
     
     # Backward
     if (fwd_back < -10):
