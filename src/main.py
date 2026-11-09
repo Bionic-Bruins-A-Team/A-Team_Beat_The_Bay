@@ -21,11 +21,17 @@ rmotor_3 = Motor(Ports.PORT6, GearSetting.RATIO_6_1)
 
 rmotors = MotorGroup(rmotor_1, rmotor_2, rmotor_3)
 
+# Intake motor
+intake = Motor(Ports.PORT7, GearSetting.RATIO_18_1)
+
 # Joystick control
 while True:
     # Set up variables for easy access
     fwd_back = controller.axis3.position()
     left_right = controller.axis4.position()
+
+    intake_out = controller.buttonL1.pressing()
+    intake_in = controller.buttonL2.pressing()
     
     # Backward
     if (fwd_back < -10):
@@ -51,6 +57,19 @@ while True:
     else:
         lmotors.stop()
         rmotors.stop()
+
+    # Intake
+    if (intake_in):
+        intake.spin(REVERSE, 80, PERCENT)
+        print("poopoo")
+
+    elif (intake_out):
+        intake.spin(FORWARD, 80, PERCENT)
+        print("pp")
+
+    # Safety block
+    else:
+        intake.stop()
     
     # Make sure CPU doesn't overload
     wait(20,MSEC)
